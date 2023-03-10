@@ -16,7 +16,6 @@ jobs:
       env:
         KUBECONFIG: ${{ secrets.KUBECONFIG }}
       run: |
-        echo "$KUBECONFIG"
         kubectl config get-contexts
         kubectl config use-context docker_desktop
 

@@ -15,8 +15,7 @@ jobs:
     - name: Configure kubectl
       uses: Azure/k8s-set-context@v1
       with:
-        method: kubeconfig
-        kubeconfig: ${{ secrets.KUBECONFIG }}
+        method: docker-desktop
 
       # Build the Docker image
     - name: Build

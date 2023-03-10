@@ -1,0 +1,29 @@
+name: Deploy Client app to Kubernetes
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Configure kubectl
+      env:
+        KUBECONFIG: ${{ secrets.KUBECONFIG }}
+      run: |
+        kubectl config use-context docker-desktop
+      # Build the Docker image
+    - name: Build
+      run: |-
+        docker build \
+          --tag "client-k8s-image" . 
+         
+    - name: Deploy app
+      run: |
+        kubectl apply -f k8s/client-deployment.yaml
+        

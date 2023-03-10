@@ -13,11 +13,11 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Configure kubectl
-      env:
-        KUBECONFIG: ${{ secrets.KUBECONFIG }}
-      run: |
-        kubectl config get-contexts
-        kubectl config use-context docker_desktop
+      uses: azure/k8s-set-context@v2
+      with:
+        method: service-account
+        k8s-url: https://kubernetes.docker.internal:6443
+        k8s-secret: ${{ secrets.KUBECONFIG }}
 
       # Build the Docker image
     - name: Build
